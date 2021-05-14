@@ -7,7 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
-@OpenAPIDefinition(info = @Info(title = "Spring Demo Service", description = "Spring Boot microservice best practices.", version = "1.0"))
+@OpenAPIDefinition(info = @Info(title = "Spring Microservice Best Practices", description = "Spring Boot microservice best practices.", version = "1.0"))
 @EnableConfigurationProperties(LocalStackProperties.class)
 @SpringBootApplication
 public class SpringbootMicroserviceBestPracticesApplication {

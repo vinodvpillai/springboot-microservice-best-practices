@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Properties>
+        <Property name="log-path">logs</Property>
+        <Property name="LOG_PATTERN">%style{%d{ISO8601}}{black} %highlight{%-5level }[%style{%t}{bright,blue}] [%style{%traceId}{bright,green}] %style{%c{3} - %M}{bright,yellow}: %m%n%throwable</Property>
+    </Properties>
+    <Appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+        <RollingFile name="LogToRollingFile" fileName="${log-path}/service.log" filePattern="${log-path}/$${date:yyyy-MM-dd}/service-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout>
+                <pattern>%d{ISO8601} %p  {%traceId} {%c{3} - %M} [%t] %m%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+                <SizeBasedTriggeringPolicy size="3MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+        <GRPCLogClientAppender name="grpc-log"/>
+    </Appenders>
+    <Loggers>
+        <Logger name="com.vinod.microservices.best.practices" level="trace" additivity="false">
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="LogToRollingFile"/>
+            <AppenderRef ref="grpc-log"/>
+        </Logger>
+        <Root level="info">
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="LogToRollingFile"/>
+            <AppenderRef ref="grpc-log"/>
+        </Root>
+    </Loggers>
+</Configuration>
